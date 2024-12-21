@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload File</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold mb-4 text-center">Upload a File</h1>
+
+    <!-- File Upload Form -->
+    <form method="POST" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-md">
+      <div class="mb-4">
+        <label for="file" class="block text-lg font-medium">Select File:</label>
+        <input type="file" id="file" name="file" class="w-full p-2 border rounded">
+      </div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Upload
+      </button>
+    </form>
+
+    <!-- Navigation Link -->
+    <div class="mt-4 text-center">
+      <a href="/" class="text-blue-500 underline">Go to BigQuery Filters</a>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BigQuery Game Stats</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold mb-4 text-center">BigQuery Game Stats</h1>
+
+    <!-- Filter Form -->
+    <form method="POST" class="bg-white p-4 rounded shadow-md mb-6">
+      <div class="mb-4">
+        <label for="filter_type" class="block text-lg font-medium">Filter By:</label>
+        <select id="filter_type" name="filter_type" class="w-full p-2 border rounded" required>
+          <option value="Genre" {% if filter_type == "Genre" %}selected{% endif %}>Genre</option>
+          <option value="Platform" {% if filter_type == "Platform" %}selected{% endif %}>Platform</option>
+          <option value="Publisher" {% if filter_type == "Publisher" %}selected{% endif %}>Publisher</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="selected_value" class="block text-lg font-medium">
+          Value (Optional):
+        </label>
+        <input type="text" id="selected_value" name="selected_value" value="{{ selected_value }}" placeholder="Leave empty to see the top result for each filter" class="w-full p-2 border rounded">
+      </div>
+
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Apply Filter
+      </button>
+    </form>
+
+    <!-- Results Table -->
+    {% if results %}
+      <table class="min-w-full bg-white shadow-md rounded overflow-hidden">
+        <thead class="bg-gray-800 text-white">
+          <tr>
+            <th class="text-left px-4 py-2">Field</th>
+            <th class="text-left px-4 py-2">Best Game</th>
+            <th class="text-left px-4 py-2">Year</th>
+            <th class="text-left px-4 py-2">Best Sales</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results %}
+            <tr class="border-b">
+              <td class="px-4 py-2">{{ row['Genre'] or row['Platform'] or row['Publisher'] }}</td>
+              <td class="px-4 py-2">{{ row['Best_Game'] }}</td>
+              <td class="px-4 py-2">{{ row['Year'] }}</td>
+              <td class="px-4 py-2">{{ row['Best_Sales'] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="text-center text-gray-600">No results found. Apply a filter above.</p>
+    {% endif %}
+
+    <!-- Navigation Link -->
+    <div class="mt-4 text-center">
+      <a href="/upload" class="text-blue-500 underline">Go to Upload File</a>
+    </div>
+  </div>
+
+</body>
+</html>
